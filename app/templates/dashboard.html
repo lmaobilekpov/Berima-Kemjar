@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-10">
+    
+    <!-- HEADER HUB WELCOME -->
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 shadow-xs">
+        <div class="flex items-center gap-4">
+            <div class="w-16 h-16 rounded-full bg-[#4a154b] text-white font-extrabold flex items-center justify-center text-2xl uppercase">
+                {{ current_user.email[0] }}
+            </div>
+            <div>
+                <h1 class="text-2xl font-black text-slate-800 dark:text-white tracking-tight">Selamat Datang Kembali!</h1>
+                <p class="text-sm text-slate-400 mt-0.5">{{ current_user.email }}</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-3">
+            <span class="text-xs font-bold uppercase tracking-widest bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400 px-4 py-2 rounded-full border border-emerald-200 dark:border-emerald-900">
+                Akun Terverifikasi
+            </span>
+            <span class="text-xs font-bold uppercase tracking-widest bg-purple-100 dark:bg-purple-950 text-[#4a154b] dark:text-purple-400 px-4 py-2 rounded-full border border-purple-200 dark:border-purple-900">
+                {{ current_user.role.name }} FIK
+            </span>
+        </div>
+    </div>
+
+    <!-- UTILITY GRID CONTENT -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- KOLOM KIRI: STATISTIK KEUANGAN / PROJEK -->
+        <div class="lg:col-span-2 space-y-8">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-xs">
+                    <span class="text-xs font-bold uppercase text-slate-400">Aktivitas Projek</span>
+                    <h3 class="text-2xl font-black text-slate-800 dark:text-white mt-1">{{ orders | selectattr('status', 'equalto', 'pending') | list | length }} Berjalan</h3>
+                </div>
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-xs">
+                    <span class="text-xs font-bold uppercase text-slate-400">Saldo Dompet</span>
+                    <h3 class="text-2xl font-black text-[#1dbf73] mt-1">Rp 345.000</h3>
+                </div>
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-xs">
+                    <span class="text-xs font-bold uppercase text-slate-400">Total Transaksi</span>
+                    <h3 class="text-2xl font-black text-slate-800 dark:text-white mt-1">{{ orders | length }} Keseluruhan</h3>
+                </div>
+            </div>
+
+            <!-- TABEL STATUS PEMESANAN / PENAWARAN TERKINI -->
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-xs">
+                <div class="p-5 border-b border-slate-100 dark:border-slate-800">
+                    <h3 class="font-bold text-slate-800 dark:text-white">Pelacakan Transaksi Jasa Terkini</h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-50 dark:bg-slate-800 text-xs font-bold uppercase text-slate-400">
+                            <tr>
+                                <th class="p-4">Deskripsi Tugas</th>
+                                <th class="p-4">Mitra Kampus</th>
+                                <th class="p-4">Harga</th>
+                                <th class="p-4">Status Kerja</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-600 dark:text-slate-300">
+                            {% for order in orders %}
+                            <tr>
+                                <td class="p-4 font-medium">{{ order.gig.title }}</td>
+                                <td class="p-4">
+                                    {% if current_user.role.name == 'seller' %}
+                                        {{ order.buyer.username or order.buyer.email }} (Pembeli)
+                                    {% else %}
+                                        {{ order.gig.seller.username or order.gig.seller.email }} (Penjual)
+                                    {% endif %}
+                                </td>
+                                <td class="p-4 font-bold">Rp {{ "{:,.0f}".format(order.gig.price) }}</td>
+                                <td class="p-4">
+                                    {% if order.status == 'pending' %}
+                                    <span class="bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-400 text-[11px] font-bold px-2.5 py-1 rounded-full">Sedang Dikerjakan</span>
+                                    {% else %}
+                                    <span class="bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400 text-[11px] font-bold px-2.5 py-1 rounded-full">Selesai Terverifikasi</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="4" class="p-4 text-center text-slate-500">Belum ada transaksi.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- KOLOM KANAN: FEED / PEMBERITAHUAN CORE DEVELOPERS -->
+        <div class="space-y-6">
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-xs">
+                <h3 class="font-bold text-slate-800 dark:text-white mb-4 flex items-center gap-2">
+                    📢 Info Tim Pengembang FIK
+                </h3>
+                <div class="space-y-4 text-xs">
+                    <div class="p-3 bg-slate-50 dark:bg-slate-800 rounded-lg border-l-4 border-purple-600">
+                        <p class="font-bold text-slate-700 dark:text-slate-200">Adam & Rajendra (Security Dept)</p>
+                        <p class="text-slate-400 mt-1">Sistem Logging Audit ISO 27001 diaktifkan penuh di latar belakang.</p>
+                    </div>
+                    <div class="p-3 bg-slate-50 dark:bg-slate-800 rounded-lg border-l-4 border-emerald-500">
+                        <p class="font-bold text-slate-700 dark:text-slate-200">Afif & Rafael (Engineering Dept)</p>
+                        <p class="text-slate-400 mt-1">Pembaruan Core Template v2 berhasil disinkronkan dengan mesin CSS Tailwind.</p>
+                    </div>
+                    <div class="p-3 bg-slate-50 dark:bg-slate-800 rounded-lg border-l-4 border-amber-500">
+                        <p class="font-bold text-slate-700 dark:text-slate-200">Jehezkiel (Data Privacy)</p>
+                        <p class="text-slate-400 mt-1">Kebijakan pembatasan hak akses sesi (Layer 5) berjalan optimal.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

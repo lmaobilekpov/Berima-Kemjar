@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="min-h-screen bg-[#FAFAFA] dark:bg-[#0B0F19] text-slate-800 dark:text-slate-100 transition-colors duration-300 py-12 px-4">
+    <div class="max-w-2xl mx-auto">
+        <a href="{{ url_for('main.explore_gigs') }}" class="text-emerald-600 dark:text-emerald-400 font-bold text-sm flex items-center gap-2 mb-6 hover:underline">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Kembali ke Marketplace
+        </a>
+
+        <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800">
+            <h1 class="text-3xl font-extrabold text-slate-900 dark:text-white mb-2">Buat Lapak Jasa Baru</h1>
+            <p class="text-slate-500 dark:text-slate-400 mb-8 text-sm font-medium">Isi detail jasa yang ingin Anda tawarkan kepada mahasiswa lain.</p>
+
+            <form action="{{ url_for('main.gig_create') }}" method="POST" class="space-y-6">
+                <!-- Title -->
+                <div>
+                    <label for="title" class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">Judul Jasa</label>
+                    <input type="text" id="title" name="title" required placeholder="Contoh: Jasa Slicing UI Figma ke HTML/CSS"
+                        class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm font-medium text-slate-900 dark:text-white transition-all shadow-sm">
+                </div>
+
+                <!-- Price -->
+                <div>
+                    <label for="price" class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">Harga (Rupiah)</label>
+                    <input type="number" id="price" name="price" required placeholder="Contoh: 150000" min="0" step="1000"
+                        class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm font-medium text-slate-900 dark:text-white transition-all shadow-sm">
+                </div>
+
+                <!-- Description -->
+                <div>
+                    <label for="description" class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">Deskripsi Lengkap</label>
+                    <textarea id="description" name="description" rows="5" required placeholder="Jelaskan detail layanan Anda di sini. Coba praktikkan XSS blind test dengan memasukkan tag <script> di sini."
+                        class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm font-medium text-slate-900 dark:text-white transition-all shadow-sm"></textarea>
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-emerald-500/30 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                        Terbitkan Lapak
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

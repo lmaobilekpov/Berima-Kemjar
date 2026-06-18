@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto mt-10 p-6 bg-white rounded shadow-md">
+    <h2 class="text-2xl font-bold mb-6">Edit Layanan (Gig)</h2>
+    <form method="POST" action="{{ url_for('main.gig_edit', gig_id=gig.id) }}">
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
+                Judul Layanan
+            </label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" name="title" type="text" value="{{ gig.title }}" required>
+        </div>
+        <div class="flex items-center justify-between">
+            <button class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                Simpan Perubahan
+            </button>
+            <a href="{{ url_for('main.explore_gigs') }}" class="inline-block align-baseline font-bold text-sm text-indigo-500 hover:text-indigo-800">
+                Batal
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

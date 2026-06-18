@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-2xl mx-auto my-12 px-4">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-8 md:p-10 shadow-xs transition-colors duration-300">
+        <h2 class="text-3xl font-extrabold text-slate-800 dark:text-white text-center tracking-tight">Gabung Bersama Kami</h2>
+        <p class="text-sm text-center text-slate-400 mt-1 mb-8">Mulailah berkolaborasi dengan talenta terbaik di lingkungan kampus</p>
+        
+        <form method="POST" class="space-y-6">
+            <div>
+                <label class="block text-xs font-bold uppercase text-slate-400 tracking-wider mb-3 text-center">Pilih Peran Akun Anda</label>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    
+                    <div id="card-buyer" onclick="selectRole('buyer')" class="border-2 border-[#1dbf73] bg-emerald-50/20 dark:bg-emerald-950/20 rounded-xl p-5 cursor-pointer hover:shadow-xs transition flex flex-col items-center text-center">
+                        <div class="w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center text-2xl mb-3">💼</div>
+                        <h4 class="font-bold text-sm text-slate-800 dark:text-white">Saya Konsumen Jasa</h4>
+                        <p class="text-xs text-slate-400 mt-1">Saya mencari bantuan untuk menyelesaikan projek atau tugas kampus.</p>
+                    </div>
+
+                    <div id="card-seller" onclick="selectRole('seller')" class="border-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-xl p-5 cursor-pointer hover:border-[#1dbf73] transition flex flex-col items-center text-center">
+                        <div class="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-900/50 flex items-center justify-center text-2xl mb-3">🛠️</div>
+                        <h4 class="font-bold text-sm text-slate-800 dark:text-white">Saya Penawar Jasa</h4>
+                        <p class="text-xs text-slate-400 mt-1">Saya memiliki skill IT/komputer dan ingin menawarkan solusi micro-gigs.</p>
+                    </div>
+
+                </div>
+                <input type="hidden" name="role" id="input-role" value="buyer">
+            </div>
+
+            <hr class="border-slate-100 dark:border-slate-800 my-6">
+
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-1.5">Email Resmi Kampus</label>
+                    <input type="email" name="email" placeholder="nama@mahasiswa.upnvj.ac.id" required class="w-full px-4 py-3 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl text-sm focus:outline-hidden focus:border-[#1dbf73] text-slate-800 dark:text-white transition">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-1.5">Kata Sandi (Password)</label>
+                    <input type="password" name="password" placeholder="••••••••" required class="w-full px-4 py-3 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl text-sm focus:outline-hidden focus:border-[#1dbf73] text-slate-800 dark:text-white transition">
+                </div>
+            </div>
+
+            <button type="submit" class="w-full bg-[#4a154b] dark:bg-purple-600 text-white py-3.5 rounded-xl font-bold text-sm hover:bg-[#380f39] dark:hover:bg-purple-700 transition shadow-xs cursor-pointer">
+                Daftar Akun Baru
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+function selectRole(role) {
+    document.getElementById('input-role').value = role;
+    const buyerCard = document.getElementById('card-buyer');
+    const sellerCard = document.getElementById('card-seller');
+    
+    if (role === 'buyer') {
+        buyerCard.className = "border-2 border-[#1dbf73] bg-emerald-50/20 dark:bg-emerald-950/20 rounded-xl p-5 cursor-pointer transition flex flex-col items-center text-center";
+        sellerCard.className = "border-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-xl p-5 cursor-pointer hover:border-[#1dbf73] transition flex flex-col items-center text-center";
+    } else {
+        buyerCard.className = "border-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-xl p-5 cursor-pointer hover:border-[#1dbf73] transition flex flex-col items-center text-center";
+        sellerCard.className = "border-2 border-[#1dbf73] bg-purple-50/20 dark:bg-purple-950/20 rounded-xl p-5 cursor-pointer transition flex flex-col items-center text-center";
+    }
+}
+</script>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-300 py-12">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <a href="/marketplace" class="inline-flex items-center gap-2 text-xs font-bold text-gray-500 dark:text-slate-400 hover:text-[#1dbf73] transition mb-6">
+            ← Kembali ke Marketplace
+        </a>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            
+            <div class="lg:col-span-2 space-y-6">
+                <div class="h-64 rounded-2xl bg-gradient-to-br from-indigo-500 via-purple-500 to-fuchsia-600 flex flex-col items-center justify-center p-8 text-white font-black text-2xl text-center shadow-xs">
+                    {{ gig.title }}
+                </div>
+
+                <div class="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-2xl p-6 shadow-xs space-y-4">
+                    <h1 class="text-2xl font-extrabold tracking-tight text-slate-950 dark:text-white">
+                        {{ gig.title }}
+                    </h1>
+                    
+                    <div class="flex items-center gap-4 py-2 border-y border-gray-100 dark:border-slate-800 text-xs">
+                        <div class="flex items-center gap-1.5 font-bold text-amber-500">
+                            ⭐ 5.0 <span class="text-gray-400 font-normal">(Terverifikasi)</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-gray-400 dark:text-slate-500">Deskripsi Layanan</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                            {{ gig.description }} Platform Berima menjamin transaksi pengerjaan tugas mikro ini diproses secara transparan dan aman sesama mahasiswa UPNVJ. Hasil pengerjaan dapat direvisi sesuai kesepakatan awal dengan penyedia jasa.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm sticky top-6 space-y-6">
+                <div>
+                    <span class="text-[10px] text-gray-400 dark:text-slate-500 uppercase font-black tracking-widest block mb-1">Harga Mulai Dari</span>
+                    <div class="text-2xl font-black text-[#1dbf73]">Rp {{ "{:,.0f}".format(gig.price) }}</div>
+                </div>
+
+                <div class="flex items-center gap-4 py-2 text-sm text-gray-500 dark:text-slate-400 border-t border-gray-100 dark:border-slate-800">
+                    <div class="flex items-center gap-1.5" title="Waktu Pengerjaan">
+                        <svg class="w-4 h-4 text-[#1dbf73]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span>{{ gig.delivery }}</span>
+                    </div>
+                    <div class="flex items-center gap-1.5" title="Batas Revisi">
+                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        <span>{{ gig.revisions }}</span>
+                    </div>
+                </div>
+
+                <div class="p-4 bg-gray-50 dark:bg-slate-950/50 border border-gray-100 dark:border-slate-800/80 rounded-xl flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold text-lg ring-2 ring-[#1dbf73]/20">{{ gig.seller.username[:2]|upper }}</div>
+                    <div>
+                        <div class="font-bold text-sm text-slate-900 dark:text-white">@{{ gig.seller.username }}</div>
+                        <div class="text-xs text-gray-400 dark:text-slate-500">Mahasiswa Jurusan {{ gig.seller.major }}</div>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <form action="{{ url_for('main.gig_order', gig_id=gig.id) }}" method="POST">
+                        <button type="submit" class="w-full bg-[#1dbf73] hover:bg-[#19a763] text-white py-3 rounded-xl text-xs font-bold tracking-wide shadow-xs transition cursor-pointer text-center block mb-2">
+                            Pesan Jasa Sekarang
+                        </button>
+                    </form>
+                    <button class="w-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 py-3 rounded-xl text-xs font-bold tracking-wide transition cursor-pointer text-center block">
+                        Hubungi Penjual (Chat)
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -39,9 +39,13 @@ def gig_edit(gig_id):
     return render_template('gig_edit.html', gig=gig)
 
 @main_bp.route('/gig/create', methods=['GET', 'POST'])
-@login_required
+# @login_required  <-- 1. MATIKAN INI DENGAN PAGAR AGAR BISA DIAKSES TANPA LOGIN
 def gig_create():
-    if current_user.role.name != 'seller' and current_user.role.name != 'admin':
+    # 2. MODIFIKASI PENGECEKAN ROLE AGAR TIDAK CRASH SAAT USER BELUM LOGIN
+    if not current_user.is_authenticated:
+        # Jika belum login, kita bypass pengecekan role dan anggap dia Guest/Anonymous untuk keperluan simulasi
+        pass
+    elif current_user.role.name != 'seller' and current_user.role.name != 'admin':
         abort(403)
         
     if request.method == 'POST':
@@ -51,18 +55,26 @@ def gig_create():
         # LOGIKA DETEKSI IDS UNTUK CROSS-SITE SCRIPTING (XSS CHECK)
         xss_signatures = ["<script>", "javascript:", "alert(", "onerror="]
         if any(sig in (description or '').lower() for sig in xss_signatures) or any(sig in (title or '').lower() for sig in xss_signatures):
+            
+            # Tentukan identitas penyerang (Anonymous jika belum login)
+            user_identity = current_user.email if current_user.is_authenticated else "Anonymous/External Attacker"
+            
+            # REKAMAN ALARM IDS AKAN MASUK KE ADMIN PANEL
             security_logger.warning(
-                f"IDS_ALERT | XSS_ATTEMPT | IP: {request.remote_addr} | "
+                f"IDS_ALERT | XSS_ATTEMPT | IP: {request.remote_addr} | User: {user_identity} | "
                 f"Payload: XSS Payload Detected in Gig Creation | Action: Sanitized By Jinja2 Auto-escape"
             )
 
-        price = request.form.get('price', type=float)
+        price = request.form.get('price', type=float) or 0.0
+        
+        # Siasati seller_id agar database tidak eror integrity constraint saat user anonim posting data
+        active_seller_id = current_user.id if current_user.is_authenticated else 1 
         
         new_gig = Gig(
             title=title,
             description=description,
             price=price,
-            seller_id=current_user.id
+            seller_id=active_seller_id
         )
         db.session.add(new_gig)
         db.session.commit()

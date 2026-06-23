@@ -79,3 +79,9 @@
 [2026-06-23 18:34:37,094] [INFO] [auth_service.py:52]: AUTENTIKASI BERHASIL: Pengguna admin@berima.com berhasil login dari IP 127.0.0.1
 [2026-06-23 18:34:37,098] [INFO] [routes.py:118]: SECURITY: Admin successfully logged in: admin@berima.com from 127.0.0.1
 [2026-06-23 18:43:48,261] [WARNING] [decorators.py:37]: IDS_ALERT | IDOR_ATTEMPT | IP: 127.0.0.1 | User: Anonymous/External Attacker tried to manipulate Gig ID: 1 | Action: Blocked By RBAC
+[2026-06-23 18:51:18,610] [INFO] [auth_service.py:52]: AUTENTIKASI BERHASIL: Pengguna admin@berima.com berhasil login dari IP 127.0.0.1
+[2026-06-23 18:51:18,613] [INFO] [routes.py:118]: SECURITY: Admin successfully logged in: admin@berima.com from 127.0.0.1
+[2026-06-23 18:53:03,877] [WARNING] [routes.py:63]: IDS_ALERT | XSS_ATTEMPT | IP: 127.0.0.1 | User: Anonymous/External Attacker | Payload: XSS Payload Detected in Gig Creation | Action: Sanitized By Jinja2 Auto-escape
+[2026-06-23 21:06:50,924] [INFO] [auth_service.py:52]: AUTENTIKASI BERHASIL: Pengguna admin@berima.com berhasil login dari IP 127.0.0.1
+[2026-06-23 21:06:50,927] [INFO] [routes.py:118]: SECURITY: Admin successfully logged in: admin@berima.com from 127.0.0.1
+[2026-06-23 21:29:56,209] [WARNING] [routes.py:63]: IDS_ALERT | XSS_ATTEMPT | IP: 127.0.0.1 | User: Anonymous/External Attacker | Payload: XSS Payload Detected in Gig Creation | Action: Sanitized By Jinja2 Auto-escape

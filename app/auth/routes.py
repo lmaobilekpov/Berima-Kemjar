@@ -11,6 +11,7 @@ from app.utils.decorators import role_required
 auth_bp = Blueprint('auth', __name__)
 
 security_logger = logging.getLogger('security_audit')
+auth_logger = logging.getLogger('security_audit')
 
 class RegisterView(MethodView):
     def get(self):
@@ -24,7 +25,12 @@ class RegisterView(MethodView):
             
         email = request.form.get('email', '').strip().lower()
         password = request.form.get('password', '')
+        username = request.form.get('username', '')
         role_name = request.form.get('role', '') # buyer atau seller
+        
+        xss_signatures = ["<script>", "javascript:", "alert(", "onerror="]
+        if any(sig in username.lower() for sig in xss_signatures):
+            auth_logger.warning(f"IDS_ALERT | XSS_ATTEMPT | IP: {request.remote_addr} | Payload: {username} | Action: Sanitized By Jinja2")
         
         success, message = AuthService.register(email, password, role_name, request.remote_addr)
         
@@ -55,6 +61,10 @@ class LoginView(MethodView):
             
         email = request.form.get('email', '').strip().lower()
         password = request.form.get('password', '')
+        
+        sqli_signatures = ["'", "OR", "UNION", "SELECT", "="]
+        if any(sig in request.form.get('email', '').upper() for sig in sqli_signatures):
+            auth_logger.warning(f"IDS_ALERT | SQL_INJECTION_ATTEMPT | IP: {request.remote_addr} | Payload: {request.form.get('email', '')} | Action: Blocked By ORM")
         
         user, error_msg = AuthService.login(email, password, request.remote_addr)
         
@@ -154,6 +164,7 @@ def admin_panel():
     return render_template('admin.html', security_logs=logs)
 
 @auth_bp.route('/api/security-logs')
+@limiter.exempt
 @login_required
 @role_required('admin')
 def api_security_logs():

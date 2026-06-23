@@ -1,8 +1,11 @@
+import logging
 from flask import Blueprint, render_template, abort, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from app.models import Gig, Order
 from app.utils.decorators import owner_required
 from app import db
+
+security_logger = logging.getLogger('security_audit')
 
 main_bp = Blueprint('main', __name__)
 
@@ -43,6 +46,15 @@ def gig_create():
     if request.method == 'POST':
         title = request.form.get('title')
         description = request.form.get('description')
+        
+        # LOGIKA DETEKSI IDS UNTUK CROSS-SITE SCRIPTING (XSS CHECK)
+        xss_signatures = ["<script>", "javascript:", "alert(", "onerror="]
+        if any(sig in (description or '').lower() for sig in xss_signatures) or any(sig in (title or '').lower() for sig in xss_signatures):
+            security_logger.warning(
+                f"IDS_ALERT | XSS_ATTEMPT | IP: {request.remote_addr} | "
+                f"Payload: XSS Payload Detected in Gig Creation | Action: Sanitized By Jinja2 Auto-escape"
+            )
+
         price = request.form.get('price', type=float)
         
         new_gig = Gig(

@@ -25,12 +25,7 @@ class RegisterView(MethodView):
             
         email = request.form.get('email', '').strip().lower()
         password = request.form.get('password', '')
-        username = request.form.get('username', '')
         role_name = request.form.get('role', '') # buyer atau seller
-        
-        xss_signatures = ["<script>", "javascript:", "alert(", "onerror="]
-        if any(sig in username.lower() for sig in xss_signatures):
-            auth_logger.warning(f"IDS_ALERT | XSS_ATTEMPT | IP: {request.remote_addr} | Payload: {username} | Action: Sanitized By Jinja2")
         
         success, message = AuthService.register(email, password, role_name, request.remote_addr)
         

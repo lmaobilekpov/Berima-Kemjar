@@ -1,7 +1,11 @@
+import logging # 1. TAMBAHKAN IMPORT LOGGING
 from functools import wraps
-from flask import abort
+from flask import abort, request # 2. TAMBAHKAN IMPORT REQUEST DI SINI
 from flask_login import current_user
 from app.models import Gig
+
+# 3. INITIALIZE LOGGER SINKRON KE SECURITY.LOG
+security_logger = logging.getLogger('security_audit')
 
 # --- IMPLEMENTASI ROLE-BASED ACCESS CONTROL (RBAC) ---
 def role_required(*role_names):
@@ -26,6 +30,13 @@ def owner_required(f):
         # Memastikan objek (Gig) yang diakses/diedit benar-benar milik user yang sedang login
         # Pengecualian (Bypass) untuk role admin
         if gig.seller_id != current_user.id and current_user.role.name != 'admin':
+            
+            # 4. TAMBAHKAN ALARM IDS SEBELUM DI-ABORT
+            security_logger.warning(
+                f"IDS_ALERT | IDOR_ATTEMPT | IP: {request.remote_addr} | "
+                f"User: {current_user.email} tried to manipulate Gig ID: {gig_id} | Action: Blocked By RBAC"
+            )
+            
             abort(403) # Mencegah manipulasi ID via parameter URL oleh user lain
             
         return f(*args, **kwargs)

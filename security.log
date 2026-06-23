@@ -1,1 +1,17 @@
-[2026-06-23 10:21:06,968] [INFO] [routes.py:202]: SECURITY: Admin admin@berima.com cleared the security logs.
+[2026-06-23 10:30:21,577] [INFO] [routes.py:197]: SECURITY: Admin admin@berima.com cleared the security logs.
+[2026-06-23 10:32:32,543] [INFO] [auth_service.py:52]: AUTENTIKASI BERHASIL: Pengguna seller@berima.com berhasil login dari IP 127.0.0.1
+[2026-06-23 10:34:49,843] [WARNING] [routes.py:53]: IDS_ALERT | XSS_ATTEMPT | IP: 127.0.0.1 | Payload: XSS Payload Detected in Gig Creation | Action: Sanitized By Jinja2 Auto-escape
+[2026-06-23 10:35:33,617] [WARNING] [auth_service.py:57]: AUTENTIKASI GAGAL: Password salah untuk akun admin@berima.com dari IP 127.0.0.1. Percobaan gagal ke-1
+[2026-06-23 10:35:34,026] [WARNING] [auth_service.py:57]: AUTENTIKASI GAGAL: Password salah untuk akun admin@berima.com dari IP 127.0.0.1. Percobaan gagal ke-2
+[2026-06-23 10:35:34,436] [WARNING] [auth_service.py:57]: AUTENTIKASI GAGAL: Password salah untuk akun admin@berima.com dari IP 127.0.0.1. Percobaan gagal ke-3
+[2026-06-23 10:35:34,833] [WARNING] [auth_service.py:57]: AUTENTIKASI GAGAL: Password salah untuk akun admin@berima.com dari IP 127.0.0.1. Percobaan gagal ke-4
+[2026-06-23 10:35:35,243] [WARNING] [auth_service.py:57]: AUTENTIKASI GAGAL: Password salah untuk akun admin@berima.com dari IP 127.0.0.1. Percobaan gagal ke-5
+[2026-06-23 10:35:58,818] [INFO] [routes.py:130]: LOGOUT: Pengguna seller@berima.com telah keluar dari sistem.
+[2026-06-23 10:47:21,569] [WARNING] [routes.py:62]: IDS_ALERT | SQL_INJECTION_ATTEMPT | IP: 127.0.0.1 | Payload: admin@berima.com' OR '1'='1 | Action: Blocked By ORM
+[2026-06-23 10:47:21,571] [WARNING] [auth_service.py:61]: USER ENUMERATION DETECTED: Email tidak terdaftar mencoba masuk: admin@berima.com' or '1'='1 dari IP 127.0.0.1
+[2026-06-23 10:53:47,615] [WARNING] [routes.py:62]: IDS_ALERT | SQL_INJECTION_ATTEMPT | IP: 127.0.0.1 | Payload: admin@berima.com' OR '1'='1 | Action: Blocked By ORM
+[2026-06-23 10:53:47,616] [WARNING] [auth_service.py:61]: USER ENUMERATION DETECTED: Email tidak terdaftar mencoba masuk: admin@berima.com' or '1'='1 dari IP 127.0.0.1
+[2026-06-23 10:59:31,396] [INFO] [auth_service.py:52]: AUTENTIKASI BERHASIL: Pengguna buyer@berima.com berhasil login dari IP 127.0.0.1
+[2026-06-23 10:59:31,599] [WARNING] [decorators.py:35]: IDS_ALERT | IDOR_ATTEMPT | IP: 127.0.0.1 | User: buyer@berima.com tried to manipulate Gig ID: 1 | Action: Blocked By RBAC
+[2026-06-23 11:00:18,822] [INFO] [auth_service.py:52]: AUTENTIKASI BERHASIL: Pengguna admin@berima.com berhasil login dari IP 127.0.0.1
+[2026-06-23 11:00:18,824] [INFO] [routes.py:112]: SECURITY: Admin successfully logged in: admin@berima.com from 127.0.0.1

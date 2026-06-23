@@ -54,32 +54,38 @@ class LoginView(MethodView):
                 return redirect(url_for('auth.admin_panel'))
             return redirect(url_for('auth.dashboard'))
             
-        email = request.form.get('email', '').strip().lower()
+        # 1. AMBIL INPUT MENTAH DARI FORM TERLEBIH DAHULU
+        raw_email = request.form.get('email', '')
         password = request.form.get('password', '')
         
+        # 2. JALANKAN SATPAM IDS PALING PERTAMA SEBELUM VALIDASI EMAIL ATAU AUTH SERVICE
         sqli_signatures = ["'", "OR", "UNION", "SELECT", "="]
-        if any(sig in request.form.get('email', '').upper() for sig in sqli_signatures):
-            auth_logger.warning(f"IDS_ALERT | SQL_INJECTION_ATTEMPT | IP: {request.remote_addr} | Payload: {request.form.get('email', '')} | Action: Blocked By ORM")
-        
+        if any(sig in raw_email.upper() for sig in sqli_signatures):
+            auth_logger.warning(
+                f"IDS_ALERT | SQL_INJECTION_ATTEMPT | IP: {request.remote_addr} | "
+                f"Payload: {raw_email} | Action: Blocked By ORM"
+            )
+            # Langsung potong dan kembalikan pesan error biar aman dan log tertulis!
+            flash("Email atau kata sandi tidak valid.", "danger")
+            return redirect(url_for('auth.login'))
+
+        # 3. PROSES NORMAL JIKA TIDAK ADA PAYLOAD SQLI
+        email = raw_email.strip().lower()
         user, error_msg = AuthService.login(email, password, request.remote_addr)
         
         if user:
-            # MITIGASI UNTUK MEMISAHKAN LOGIN ADMIN: Admin harus login via /admin-portal/login
             if user.role.name == 'admin':
                 flash("Admin tidak dapat login melalui portal publik.", "danger")
                 security_logger.warning(f"SECURITY: Admin trying to login via public portal: {email} from {request.remote_addr}")
                 return redirect(url_for('auth.login'))
 
-            # MITIGASI SESSION FIXATION: Bersihkan session token lama sebelum login baru
             session.clear()
             login_user(user)
-            
             return redirect(url_for('auth.dashboard'))
         else:
-            # MITIGASI USER ENUMERATION: Pastikan pesan yang keluar selalu generik
             flash("Email atau kata sandi tidak valid.", "danger")
             return redirect(url_for('auth.login'))
-
+        
 class AdminLoginView(MethodView):
     decorators = [limiter.limit("5 per minute", error_message="Batas login terlampaui. Silakan tunggu 1 menit.")]
 

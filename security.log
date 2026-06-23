@@ -57,3 +57,8 @@
 [2026-06-23 17:23:03,505] [INFO] [routes.py:112]: SECURITY: Admin successfully logged in: admin@berima.com from 127.0.0.1
 [2026-06-23 17:25:11,470] [WARNING] [routes.py:62]: IDS_ALERT | SQL_INJECTION_ATTEMPT | IP: 127.0.0.1 | Payload: hacker@jahat.com' OR '1'='1 | Action: Blocked By ORM
 [2026-06-23 17:25:11,471] [WARNING] [auth_service.py:61]: USER ENUMERATION DETECTED: Email tidak terdaftar mencoba masuk: hacker@jahat.com' or '1'='1 dari IP 127.0.0.1
+[2026-06-23 17:34:48,127] [INFO] [auth_service.py:52]: AUTENTIKASI BERHASIL: Pengguna admin@berima.com berhasil login dari IP 127.0.0.1
+[2026-06-23 17:34:48,130] [INFO] [routes.py:118]: SECURITY: Admin successfully logged in: admin@berima.com from 127.0.0.1
+[2026-06-23 17:40:03,787] [INFO] [auth_service.py:52]: AUTENTIKASI BERHASIL: Pengguna admin@berima.com berhasil login dari IP 127.0.0.1
+[2026-06-23 17:40:03,792] [INFO] [routes.py:118]: SECURITY: Admin successfully logged in: admin@berima.com from 127.0.0.1
+[2026-06-23 17:40:18,335] [WARNING] [routes.py:64]: IDS_ALERT | SQL_INJECTION_ATTEMPT | IP: 127.0.0.1 | Payload: admin@berima.com' OR '1'='1 | Action: Blocked By ORM

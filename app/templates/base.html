@@ -38,6 +38,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
+        
+        /* Logo color remains same in dark mode */
+        .dark .logo-dark {
+            filter: none;
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 flex flex-col min-h-screen transition-colors duration-300">
@@ -48,7 +53,7 @@
                 
                 <div class="flex items-center gap-8">
                     <a href="{{ url_for('main.explore_gigs') }}" class="flex items-center gap-2 group">
-                        <img src="{{ url_for('static', filename='img/logo.png') }}" class="w-9 h-9 object-contain mix-blend-multiply dark:mix-blend-normal dark:bg-white dark:rounded-md p-0.5 group-hover:scale-105 transition-transform" alt="Logo">
+                        <img src="{{ url_for('static', filename='img/logo.png') }}" class="w-9 h-9 object-contain mix-blend-multiply dark:mix-blend-normal dark:rounded-md p-0.5 group-hover:scale-105 transition-transform logo-dark" alt="Logo">
                         <span class="text-2xl font-black tracking-tight text-[#4a154b] dark:text-purple-400 transition-colors duration-300">
                             berima<span class="text-[#1dbf73]">.</span>
                         </span>
@@ -105,7 +110,7 @@
     <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 sm:flex sm:justify-between items-center text-sm text-slate-400">
             <div class="flex items-center justify-center gap-2 mb-4 sm:mb-0">
-                <img src="{{ url_for('static', filename='img/logo.png') }}" class="w-6 h-6 object-contain mix-blend-multiply dark:bg-white dark:rounded-xs p-0.5" alt="Logo">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" class="w-6 h-6 object-contain mix-blend-multiply dark:mix-blend-normal dark:rounded-xs p-0.5 logo-dark" alt="Logo">
                 <span class="font-extrabold text-slate-700 dark:text-slate-300">berima.</span>
             </div>
             <div>&copy; 2026 Dev Team FIK UPNVJ. Hak Cipta Dilindungi.</div>

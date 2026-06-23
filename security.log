@@ -70,3 +70,9 @@
 [2026-06-23 18:01:14,743] [WARNING] [decorators.py:33]: IDS_ALERT | IDOR_ATTEMPT | IP: 127.0.0.1 | User: buyer@berima.com tried to manipulate Gig ID: 1 | Action: Blocked By RBAC
 [2026-06-23 18:01:56,327] [INFO] [auth_service.py:52]: AUTENTIKASI BERHASIL: Pengguna admin@berima.com berhasil login dari IP 127.0.0.1
 [2026-06-23 18:01:56,330] [INFO] [routes.py:118]: SECURITY: Admin successfully logged in: admin@berima.com from 127.0.0.1
+[2026-06-23 18:18:37,180] [INFO] [auth_service.py:52]: AUTENTIKASI BERHASIL: Pengguna admin@berima.com berhasil login dari IP 127.0.0.1
+[2026-06-23 18:18:37,183] [INFO] [routes.py:118]: SECURITY: Admin successfully logged in: admin@berima.com from 127.0.0.1
+[2026-06-23 18:21:41,788] [INFO] [auth_service.py:52]: AUTENTIKASI BERHASIL: Pengguna admin@berima.com berhasil login dari IP 127.0.0.1
+[2026-06-23 18:21:41,791] [INFO] [routes.py:118]: SECURITY: Admin successfully logged in: admin@berima.com from 127.0.0.1
+[2026-06-23 18:27:03,080] [INFO] [auth_service.py:52]: AUTENTIKASI BERHASIL: Pengguna admin@berima.com berhasil login dari IP 127.0.0.1
+[2026-06-23 18:27:03,084] [INFO] [routes.py:118]: SECURITY: Admin successfully logged in: admin@berima.com from 127.0.0.1

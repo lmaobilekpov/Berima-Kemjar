@@ -1,3 +1,4 @@
+from app.utils.decorators import owner_required
 import logging
 from flask import Blueprint, render_template, abort, request, flash, redirect, url_for
 from flask_login import login_required, current_user
@@ -25,7 +26,7 @@ def about_page():
     return render_template('about.html')
 
 @main_bp.route('/gig/edit/<int:gig_id>', methods=['GET', 'POST'])
-@login_required
+#@login_required
 @owner_required
 def gig_edit(gig_id):
     gig = Gig.query.get_or_404(gig_id)

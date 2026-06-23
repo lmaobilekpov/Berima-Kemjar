@@ -1,3 +1,4 @@
+from app.utils.decorators import owner_required
 from flask import Blueprint, render_template, request, render_template_string
 from app.models import User
 from app import db

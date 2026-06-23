@@ -62,3 +62,7 @@
 [2026-06-23 17:40:03,787] [INFO] [auth_service.py:52]: AUTENTIKASI BERHASIL: Pengguna admin@berima.com berhasil login dari IP 127.0.0.1
 [2026-06-23 17:40:03,792] [INFO] [routes.py:118]: SECURITY: Admin successfully logged in: admin@berima.com from 127.0.0.1
 [2026-06-23 17:40:18,335] [WARNING] [routes.py:64]: IDS_ALERT | SQL_INJECTION_ATTEMPT | IP: 127.0.0.1 | Payload: admin@berima.com' OR '1'='1 | Action: Blocked By ORM
+[2026-06-23 17:48:16,192] [WARNING] [routes.py:64]: IDS_ALERT | SQL_INJECTION_ATTEMPT | IP: 127.0.0.1 | Payload: admin@berima.com' OR '1'='1 | Action: Blocked By ORM
+[2026-06-23 17:48:42,259] [WARNING] [auth_service.py:57]: AUTENTIKASI GAGAL: Password salah untuk akun admin@berima.com dari IP 127.0.0.1. Percobaan gagal ke-1
+[2026-06-23 17:48:42,673] [WARNING] [auth_service.py:57]: AUTENTIKASI GAGAL: Password salah untuk akun admin@berima.com dari IP 127.0.0.1. Percobaan gagal ke-2
+[2026-06-23 17:48:43,088] [WARNING] [auth_service.py:57]: AUTENTIKASI GAGAL: Password salah untuk akun admin@berima.com dari IP 127.0.0.1. Percobaan gagal ke-3
